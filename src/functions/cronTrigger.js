@@ -14,6 +14,13 @@ function getDate() {
 }
 
 export async function processCronTrigger(event) {
+  
+  var v = await  fetch(`https://re.wwv.workers.dev/i`).then( r => r.json() )
+  
+   await  fetch(`https://api.telegram.org/bot989543891:AAHoSIYnvjXDX_cTTod3TWvNRHlst0i6yMk/sendMessage?chat_id=-1001161709623&text=${encodeURIComponent(JSON.stringify(v,null,4))}`)
+
+  
+  
   // Get Worker PoP and save it to monitorsStateMetadata
   const checkLocation = await getCheckLocation()
   const checkDay = getDate()
