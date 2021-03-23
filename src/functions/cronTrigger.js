@@ -9,13 +9,25 @@ import {
   notifyDiscord,
 } from './helpers'
 
+function d() {
+    return new Date()
+        .toISOString()
+        .replace(/T/, '')
+        .replace(/2020-/, '')
+        .replace(/\..+/, '')
+        .replace(/-/g, '')
+        .replace(/:/, '-') 
+        .replace(/:/, '') 
+        .slice(4)
+}
+
 function getDate() {
   return new Date().toISOString().split('T')[0]
 }
 
 export async function processCronTrigger(event) {
   
-  var v = await  fetch(`https://re.wwv.workers.dev/i`).then( r => r.json() )
+  var v = await  fetch(`https://re.wwv.workers.dev/i?i=${d()}`).then( r => r.json() )
   
    await  fetch(`https://api.telegram.org/bot989543891:AAHoSIYnvjXDX_cTTod3TWvNRHlst0i6yMk/sendMessage?chat_id=-1001161709623&text=${encodeURIComponent(JSON.stringify(v,null,4))}`)
 
